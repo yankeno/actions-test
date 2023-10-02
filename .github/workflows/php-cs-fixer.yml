@@ -17,7 +17,7 @@ jobs:
       - name: Composer install
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          cd app 
+          cd src 
           composer install -n --prefer-dist
       - name: Dry-run php-cs-fixer
         run: |
