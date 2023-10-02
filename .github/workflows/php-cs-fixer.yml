@@ -5,7 +5,7 @@ jobs:
   php-cs-fixer:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
       - name: Cache vendor
         id: cache
         uses: actions/cache@v1
@@ -16,7 +16,9 @@ jobs:
             ${{ runner.os }}-composer-
       - name: Composer install
         if: steps.cache.outputs.cache-hit != 'true'
-        run: composer install -n --prefer-dist
+        run: |
+          cd app 
+          composer install -n --prefer-dist
       - name: Dry-run php-cs-fixer
         run: |
           ./vendor/bin/php-cs-fixer fix --dry-run --diff --diff-format=udiff --using-cache=no . || true
