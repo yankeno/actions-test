@@ -17,12 +17,14 @@ jobs:
       - name: Composer install
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd src && composer install -n --prefer-dist
+      - name: Print working directory
+        run: |
+          pwd && ls -al
       - name: Dry-run php-cs-fixer
         run: |
           ./vendor/bin/php-cs-fixer fix --dry-run --diff --diff-format=udiff --using-cache=no . || true
       - name: Execute php-cs-fixer
         run: |
-          ls -al |
           ./vendor/bin/php-cs-fixer fix --using-cache=no
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v4.2.0
