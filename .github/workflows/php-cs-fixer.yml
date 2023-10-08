@@ -1,5 +1,8 @@
 name: php-cs-fixer
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   php-cs-fixer:
@@ -27,7 +30,7 @@ jobs:
           ./vendor/bin/php-cs-fixer fix --using-cache=no
         working-directory: ./src
       - name: Commit and push
-        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: pxp-cs-fixer by Github Actions
       - name: Run if changes have been detected
